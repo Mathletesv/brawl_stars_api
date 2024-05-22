@@ -6,6 +6,7 @@ license = "MIT"
 keywords = ["brawl", "stars", "gamedev"]
 categories = ["api-bindings"]
 description = "A Rust crate to interact with the Brawl Stars API"
+repository = "https://github.com/Mathletesv/brawl_stars_api"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
