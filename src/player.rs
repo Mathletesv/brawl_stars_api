@@ -2,6 +2,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::{battle_log::Battle, connection::Connection, general::{Accessory, ApiResult, Icon, StarPower}};
 
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Player {
   pub data: PlayerData,
   pub battles: Vec<Battle>,
@@ -23,7 +24,7 @@ impl Player {
   pub async fn get_battles(&mut self, connection: &Connection) -> &Vec<Battle> {
     let tag = self.data.tag.as_str();
     match connection.get_battle_log(tag).await.unwrap() {
-      ApiResult::Ok(battle_log) => self.battles.extend(battle_log.items),
+      ApiResult::Ok(battle_log) => self.battles = battle_log.items,
       ApiResult::Error(_) => (),
     }
     &self.battles

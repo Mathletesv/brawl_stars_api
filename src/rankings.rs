@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::general::{ClientError, Icon, Paging};
+use crate::general::{Icon, Paging};
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct PlayerRanking {

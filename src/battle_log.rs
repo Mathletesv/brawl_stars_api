@@ -1,7 +1,5 @@
 use serde::{Deserialize, Serialize};
 
-use crate::general::ClientError;
-
 #[derive(Serialize, Deserialize, Debug)]
 pub struct BattleLog {
   pub items: Vec<Battle>
