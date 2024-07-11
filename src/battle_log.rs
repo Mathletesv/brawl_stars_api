@@ -10,9 +10,7 @@ pub struct BattleLog {
 
 impl BattleLog {
   pub async fn get(tag: &str, connection: &Connection) -> Result<Vec<Battle>, ClientError> {
-    let call = connection.get_battle_log(tag).await;
-    println!("{}: {:?}", tag, call);
-    match call.unwrap() {
+    match connection.get_battle_log(tag).await.unwrap() {
       ApiResult::Ok(battle_log) => Ok(battle_log.items),
       ApiResult::Error(err) => Err(err),
     }
