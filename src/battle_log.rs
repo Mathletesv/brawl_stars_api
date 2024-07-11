@@ -51,7 +51,8 @@ pub struct BattleData {
 pub struct BattlePlayer {
   pub tag: String,
   pub name: String,
-  pub brawler: Brawler,
+  pub brawler: Option<Brawler>,
+  pub brawlers: Option<Vec<Brawler>>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -59,5 +60,7 @@ pub struct Brawler {
   pub id: i32,
   pub name: String,
   pub power: i32,
-  pub trophies: i32
+  pub trophies: i32,
+  #[serde(rename = "trophyChange")]
+  pub trophy_change: Option<i32>,
 }

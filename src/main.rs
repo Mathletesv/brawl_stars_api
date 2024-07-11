@@ -1,10 +1,6 @@
 use std::fmt::Result;
 
-use brawl_stars_api::{battle_log::BattleLog, connection::Connection, general::ApiResult, player::Player};
-use reqwest::header::AUTHORIZATION;
-
-use brawl_stars_api::player::PlayerData;
-
+use brawl_stars_api::{battle_log::BattleLog, connection::Connection};
 #[tokio::main]
 async fn main() -> Result {
     println!("Hello, world!");
@@ -21,7 +17,7 @@ async fn main() -> Result {
     // println!("{:?}", me);
     // let battle_log = me.get_battles(&connection).await;
     // println!("{:?}", battle_log);
-    let try_two = BattleLog::get("#PVVYCR9GV", &connection).await;
+    let try_two = BattleLog::get("#9V9YCUYPC", &connection).await;
     println!("{:?}", try_two);
     Ok(())
 }
