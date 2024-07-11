@@ -1,15 +1,18 @@
 use serde::{Deserialize, Serialize};
 
-use crate::{connection::Connection, general::{ApiResult, ClientError}};
+use crate::{connection::Connection, general::{ApiResult, ClientError, Paging}};
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct BattleLog {
-  pub items: Vec<Battle>
+  pub items: Vec<Battle>,
+  pub paging: Paging,
 }
 
 impl BattleLog {
   pub async fn get(tag: &str, connection: &Connection) -> Result<Vec<Battle>, ClientError> {
-    match connection.get_battle_log(tag).await.unwrap() {
+    let call = connection.get_battle_log(tag).await;
+    println!("{}: {:?}", tag, call);
+    match call.unwrap() {
       ApiResult::Ok(battle_log) => Ok(battle_log.items),
       ApiResult::Error(err) => Err(err),
     }
@@ -37,10 +40,11 @@ pub struct BattleData {
   pub mode: String,
   #[serde(rename = "type")]
   pub game_type: String,
-  pub result: String,
-  pub duration: i32,
+  pub result: Option<String>,
+  pub rank: Option<i32>,
+  pub duration: Option<i32>,
   pub star_player: Option<BattlePlayer>,
-  pub teams: ((BattlePlayer, BattlePlayer, BattlePlayer), (BattlePlayer, BattlePlayer, BattlePlayer)),
+  pub teams: Vec<Vec<BattlePlayer>>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]

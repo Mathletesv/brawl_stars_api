@@ -21,6 +21,7 @@ impl Player {
   }
 
   pub async fn get_battles(&mut self, connection: &Connection) -> Result<Vec<Battle>, ClientError> {
+    println!("{:?}", self.data.tag);
     BattleLog::get(&self.data.tag, connection).await
   }
 }
