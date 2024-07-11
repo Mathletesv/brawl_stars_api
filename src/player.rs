@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::{battle_log::Battle, connection::Connection, general::{Accessory, ApiResult, Icon, StarPower}};
+use crate::{battle_log::{Battle, BattleLog}, connection::Connection, general::{Accessory, ApiResult, ClientError, Icon, StarPower}};
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Player {
@@ -9,25 +9,19 @@ pub struct Player {
 }
 
 impl Player {
-  pub async fn new(tag: &str, connection: &Connection) -> Player {
-    let data = match connection.get_player(tag).await.unwrap() {
-      ApiResult::Ok(data) => data,
-      ApiResult::Error(error) => panic!("Error: {:?}", error),
-    };
-    Player { data: data, battles: Vec::new() }
+  pub async fn new(tag: &str, connection: &Connection) -> Result<Player, ClientError> {
+    match connection.get_player(tag).await.unwrap() {
+      ApiResult::Ok(data) => Ok(Player { data: data, battles: Vec::new() }),
+      ApiResult::Error(error) => Err(error),
+    }
   }
 
   pub fn get_brawler(&self, brawler_name: &str) -> Option<&BrawlerStat> {
     self.data.brawlers.iter().find(|b| b.name == brawler_name)
   }
 
-  pub async fn get_battles(&mut self, connection: &Connection) -> &Vec<Battle> {
-    let tag = self.data.tag.as_str();
-    match connection.get_battle_log(tag).await.unwrap() {
-      ApiResult::Ok(battle_log) => self.battles = battle_log.items,
-      ApiResult::Error(_) => (),
-    }
-    &self.battles
+  pub async fn get_battles(&mut self, connection: &Connection) -> Result<Vec<Battle>, ClientError> {
+    BattleLog::get(&self.data.tag, connection).await
   }
 }
 

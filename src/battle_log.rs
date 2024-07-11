@@ -1,8 +1,19 @@
 use serde::{Deserialize, Serialize};
 
+use crate::{connection::Connection, general::{ApiResult, ClientError}};
+
 #[derive(Serialize, Deserialize, Debug)]
 pub struct BattleLog {
   pub items: Vec<Battle>
+}
+
+impl BattleLog {
+  pub async fn get(tag: &str, connection: &Connection) -> Result<Vec<Battle>, ClientError> {
+    match connection.get_battle_log(tag).await.unwrap() {
+      ApiResult::Ok(battle_log) => Ok(battle_log.items),
+      ApiResult::Error(err) => Err(err),
+    }
+  }
 }
 
 #[derive(Serialize, Deserialize, Debug)]
