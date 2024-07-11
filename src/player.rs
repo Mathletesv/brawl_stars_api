@@ -36,7 +36,7 @@ impl Player {
 pub struct PlayerData {
   pub tag: String,
   pub name: String,
-  pub name_color: String,
+  pub name_color: Option<String>,
   pub icon: Icon,
   pub trophies: i32,
   pub highest_trophies: i32,
@@ -77,6 +77,6 @@ pub struct GearStat {
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct PlayerClub {
-  pub tag: String,
-  pub name: String,
+  pub tag: Option<String>,
+  pub name: Option<String>,
 }
