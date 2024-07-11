@@ -43,7 +43,8 @@ pub struct BattleData {
   pub trophy_change: Option<i32>,
   pub duration: Option<i32>,
   pub star_player: Option<BattlePlayer>,
-  pub teams: Vec<Vec<BattlePlayer>>,
+  pub teams: Option<Vec<Vec<BattlePlayer>>>,
+  pub players: Option<Vec<BattlePlayer>>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
