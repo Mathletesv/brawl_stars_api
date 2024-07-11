@@ -40,6 +40,7 @@ pub struct BattleData {
   pub game_type: String,
   pub result: Option<String>,
   pub rank: Option<i32>,
+  pub trophy_change: Option<i32>,
   pub duration: Option<i32>,
   pub star_player: Option<BattlePlayer>,
   pub teams: Vec<Vec<BattlePlayer>>,
