@@ -28,8 +28,8 @@ pub struct Battle {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Event {
   pub id: i32,
-  pub mode: String,
-  pub map: String,
+  pub mode: Option<String>,
+  pub map: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]

@@ -21,7 +21,7 @@ async fn main() -> Result {
     // println!("{:?}", me);
     // let battle_log = me.get_battles(&connection).await;
     // println!("{:?}", battle_log);
-    let try_two = BattleLog::get("#909GR8902", &connection).await;
+    let try_two = BattleLog::get("#PVVYCR9GV", &connection).await;
     println!("{:?}", try_two);
     Ok(())
 }
